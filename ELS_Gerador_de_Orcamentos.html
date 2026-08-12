@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E.L.S Vidros e Espelhos — Orçamentos</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#070b12;color:#171717}
+.app{max-width:1100px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.brand{font-weight:800;font-size:22px}.brand span{display:block;font-size:12px;letter-spacing:2px;font-weight:500}
+button{border:0;border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer}
+.primary{background:#171717;color:#fff}.gold{background:#168cff;color:#fff}.light{background:#111827;color:#fff;border:1px solid #26364b}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.panel{background:#0f1722;color:#fff;border-radius:14px;padding:18px;box-shadow:0 3px 15px #00000010}
+h2{margin:0 0 14px;font-size:18px}.field{margin-bottom:12px}label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#9fb0c4}
+input,textarea,select{width:100%;padding:11px;border:1px solid #26364b;background:#0b111b;color:#fff;border-radius:8px;font-size:14px}textarea{min-height:85px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.quote{background:#0b111b;color:#fff;min-height:1100px;box-shadow:0 3px 18px #0002}
+.head{background:#080d15;color:#fff;padding:28px;display:flex;justify-content:space-between;gap:20px;border-bottom:4px solid #168cff}
+.logo{font-size:30px;font-weight:900;letter-spacing:2px}.logo small{display:block;font-size:11px;letter-spacing:3px;font-weight:500}
+.contacts{text-align:right;font-size:12px;line-height:1.8}
+.content{padding:28px}.title{font-size:36px;font-weight:900;margin-bottom:18px}.title span{color:#9fb0c4}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}.meta div{border:1px solid #26364b;padding:11px;border-radius:6px;font-size:13px}
+.section-title{background:#168cff;color:white;padding:10px 14px;font-weight:800;border-radius:7px;margin:18px 0 0}
+table{width:100%;border-collapse:collapse}th{background:#132235;color:white;padding:10px;text-align:left;font-size:12px}td{padding:12px;border:1px solid #26364b;font-size:13px;vertical-align:top}.total{text-align:right;font-size:18px;font-weight:900;padding:14px;background:#101a28;color:#fff}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.box{border:1px solid #26364b;border-radius:7px;padding:14px;margin-top:16px}.box h3{margin:0 0 9px;font-size:14px}.box p{margin:6px 0;font-size:12px;line-height:1.5}
+.footer{background:#168cff;color:white;padding:22px;text-align:center;border-top:4px solid #168cff;font-size:12px}.tag{color:#168cff;font-weight:800}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.quote{min-height:auto}.head{flex-direction:column}.contacts{text-align:left}.meta,.cols{grid-template-columns:1fr}}
+@media print{body{background:white}.app>.top,.panel{display:none}.app{padding:0;max-width:none}.grid{display:block}.quote{box-shadow:none}.content{padding:20px}.quote{min-height:auto}@page{size:A4;margin:0}}
+</style>
+<meta name="theme-color" content="#070b12"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">E.L.S VIDROS E ESPELHOS<span>GERADOR DE ORÇAMENTOS</span></div>
+    <div class="actions">
+      <button class="light" onclick="novo()">Novo orçamento</button>
+      <button class="primary" onclick="window.print()">Imprimir / Salvar PDF</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Dados do orçamento</h2>
+      <div class="row">
+        <div class="field"><label>Nº do orçamento</label><input id="num" value="034/2026"></div>
+        <div class="field"><label>Data</label><input id="date" type="date"></div>
+      </div>
+      <div class="field"><label>Cliente</label><input id="client" value="Ícaro (Cliente)"></div>
+      <div class="field"><label>Telefone</label><input id="phone" value="(11) 99180-1603"></div><div class="field"><label>Endereço / obra</label><input id="address" value="Condomínio Residencial Alpha"></div>
+      <div class="field"><label>Validade</label><input id="valid" value="10 dias"></div>
+      <hr>
+      <h2>Serviço</h2>
+      <div class="field"><label>Nome do serviço</label><input id="service" value="TROCA VIDRO QUARITA MU CLICK"></div>
+      <div class="field"><label>Descrição</label><textarea id="desc">Fornecimento e instalação de vidro Quarita.
+Vidro de segurança laminado 3+3 mm.
+Película refletiva + película refletiva no vidro lateral.
+Película refletiva profissional prata.</textarea></div>
+      <div class="row"><div class="field"><label>Quantidade</label><input id="qty" type="number" min="1" step="1" value="1"></div><div class="field"><label>Unidade</label><select id="unit"><option>Unid.</option><option>m²</option><option>m</option><option>Kit</option></select></div></div><div class="field"><label>Valor unitário (R$)</label><input id="value" value="1268,00"></div>
+      <div class="field"><label>Forma de pagamento</label><input id="payment" value="Pix, transferência bancária, dinheiro, cheque, cartão de crédito, cartão de débito, PicPay ou link de pagamento."></div>
+      <div class="field"><label>Prazo de execução</label><input id="deadline" value="A combinar após confirmação do pedido."></div>
+      <div class="field"><label>Condição de pagamento</label><input id="condition" value="A combinar."></div>
+      <div class="field"><label>Observações / garantia</label><textarea id="warranty">A E.L.S Vidros e Espelhos garante a qualidade da instalação e dos materiais fornecidos conforme as condições estabelecidas neste orçamento. A garantia não cobre danos decorrentes de mau uso, impactos ou alterações realizadas por terceiros.</textarea></div>
+      <div class="actions"><button class="gold" onclick="salvar()">Salvar orçamento</button><button class="light" onclick="carregar()">Carregar último</button></div>
+    </div>
+
+    <div class="quote" id="quote">
+      <div class="head">
+        <div class="logo">E.L.S<small>VIDROS E ESPELHOS</small></div>
+        <div class="contacts">WhatsApp: (11) 99297-4779<br>eduardo.lopesilva@outlook.com.br<br>@els_vidroseespelhos<br>CNPJ: 22.210.939/0001-13<br>São Paulo/SP</div>
+      </div>
+      <div class="content">
+        <div class="title">ORÇAMENTO <span>Nº <b id="pnum"></b></span></div>
+        <div class="meta">
+          <div><b>DATA</b><br><span id="pdate"></span></div>
+          <div><b>CLIENTE</b><br><span id="pclient"></span></div>
+          <div><b>TELEFONE</b><br><span id="pphone"></span></div>
+          <div><b>VALIDADE</b><br><span id="pvalid"></span></div>
+        </div>
+        <div class="section-title">SERVIÇOS</div>
+        <table><thead><tr><th>ITEM</th><th>SERVIÇO</th><th>DESCRIÇÃO</th><th>VALOR</th></tr></thead>
+        <tbody><tr><td>01</td><td><b id="pservice"></b></td><td id="pdesc"></td><td><b>R$ <span id="pvalue"></span></b></td></tr></tbody>
+        </table>
+        <div class="total">TOTAL DO ORÇAMENTO: R$ <span id="ptotal"></span></div>
+
+        <div class="cols">
+          <div>
+            <div class="box"><h3>✓ INCLUSO NO SERVIÇO</h3><p>• Fornecimento do vidro especificado;</p><p>• Mão de obra para instalação;</p><p>• Aplicação das películas especificadas;</p><p>• Acabamento e limpeza da área após a instalação.</p></div>
+            <div class="box"><h3>✕ NÃO INCLUSO</h3><p>• Serviços de alvenaria;</p><p>• Reparos na estrutura existente;</p><p>• Serviços não descritos neste orçamento.</p></div>
+          </div>
+          <div>
+            <div class="box"><h3>CONDIÇÕES COMERCIAIS</h3><p><b>PAGAMENTO:</b> <span id="ppayment"></span></p><p><b>PRAZO:</b> <span id="pdeadline"></span></p><p><b>CONDIÇÃO:</b> <span id="pcondition"></span></p></div>
+            <div class="box"><h3>GARANTIA</h3><p id="pwarranty"></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span class="tag">Qualidade, segurança e acabamento em cada detalhe.</span><br><br>E.L.S VIDROS E ESPELHOS — CNPJ 22.210.939/0001-13 — São Paulo/SP</div>
+    </div>
+  </div>
+</div>
+<script>
+const ids=['num','date','client','phone','address','valid','service','desc','qty','unit','value','payment','deadline','condition','warranty'];
+function brDate(v){if(!v)return '';let [y,m,d]=v.split('-');return d+'/'+m+'/'+y}
+function update(){
+  const g=id=>document.getElementById(id).value;
+  pnum.textContent=g('num'); pdate.textContent=brDate(g('date')); pclient.textContent=g('client'); pphone.textContent=g('phone'); pvalid.textContent=g('valid');
+  pservice.textContent=g('service'); pdesc.innerHTML=g('desc').replace(/\n/g,'<br>'); const q=parseFloat(g('qty'))||1; const v=parseFloat(g('value').replace(/\./g,'').replace(',','.'))||0; const t=q*v; const f=t.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); pvalue.textContent=f; ptotal.textContent=f;
+  ppayment.textContent=g('payment'); pdeadline.textContent=g('deadline'); pcondition.textContent=g('condition'); pwarranty.textContent=g('warranty');
+}
+function salvar(){localStorage.setItem('els_orcamento',JSON.stringify(Object.fromEntries(ids.map(i=>[i,document.getElementById(i).value]))));alert('Orçamento salvo neste aparelho.');}
+function carregar(){let x=JSON.parse(localStorage.getItem('els_orcamento')||'null');if(!x)return alert('Nenhum orçamento salvo.');ids.forEach(i=>document.getElementById(i).value=x[i]??'');update();}
+function novo(){ids.forEach(i=>{if(i!=='date')document.getElementById(i).value=''});document.getElementById('valid').value='10 dias';document.getElementById('date').value=new Date().toISOString().slice(0,10);update();}
+ids.forEach(i=>document.getElementById(i).addEventListener('input',update));
+document.getElementById('date').value=new Date().toISOString().slice(0,10); update();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
+</script>
+</body>
+</html>
