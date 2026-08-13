@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>E.L.S Orçamentos</title>
+<style>
+:root{--bg:#070b12;--card:#0d141f;--line:#1f3550;--blue:#168cff;--blue2:#68c9ff;--text:#f7fbff;--muted:#a9b7c8}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+.app{max-width:1200px;margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.brand{font-weight:900;font-size:22px}.brand span{display:block;font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:3px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}button{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}
+.primary{background:linear-gradient(90deg,var(--blue),#0f6fe7);color:#fff}.secondary{background:#111a27;color:#fff;border:1px solid #29405b}
+.layout{display:grid;grid-template-columns:360px 1fr;gap:16px}.panel{background:#0f1722;border:1px solid #17283b;border-radius:14px;padding:16px;box-shadow:0 8px 26px #0004;position:sticky;top:10px;height:max-content}
+.panel h2{margin:0 0 12px;font-size:17px}.field{margin-bottom:10px}.field label{display:block;font-size:11px;font-weight:800;color:#9fb0c4;margin-bottom:4px}
+input,textarea,select{width:100%;padding:10px;border:1px solid #26364b;background:#0a111b;color:#fff;border-radius:8px;font-size:13px}textarea{min-height:78px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.quote-wrap{background:#d9d9d9;padding:18px;border-radius:14px}.quote{width:210mm;min-height:297mm;margin:auto;background:#05090f;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 30px #0006;padding:14mm 14mm 11mm}
+.quote:before{content:"";position:absolute;right:-34mm;top:-40mm;width:96mm;height:96mm;border:16mm solid #0c6fe8;border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;transform:rotate(8deg);opacity:.95}
+.quote:after{content:"";position:absolute;left:-25mm;bottom:-35mm;width:90mm;height:38mm;border-top:8mm solid #0d6fe8;border-radius:50%;transform:rotate(-8deg)}
+.qhead{display:grid;grid-template-columns:1.05fr 1fr;gap:10mm;align-items:start;position:relative;z-index:2}.logo{font-size:23mm;font-weight:900;letter-spacing:-2mm;line-height:.75}.logo small{display:block;font-size:7mm;letter-spacing:.7mm;font-weight:500;margin-top:3mm}
+.tags{font-size:3.2mm;letter-spacing:.15mm;color:#dbe8f6;margin-top:6mm}.contact{font-size:3.6mm;line-height:1.8}.blue{color:var(--blue)}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:9mm;margin-top:10mm;position:relative;z-index:2}.title{font-size:10mm;font-weight:900;line-height:1}.title .num{display:block;font-size:9mm;margin-top:3mm}.underline{width:28mm;height:1.5mm;background:var(--blue);margin:5mm 0}.hero p{font-size:3.8mm;line-height:1.45;margin:0}
+.meta{border:1px solid var(--blue);border-radius:2mm;overflow:hidden}.meta-row{display:grid;grid-template-columns:1fr 1.3fr;border-bottom:1px solid #334a65;padding:3mm 4mm;font-size:3.6mm}.meta-row:last-child{border-bottom:0}.meta-row span{text-align:right}
+.services{margin-top:7mm;position:relative;z-index:2}table{width:100%;border-collapse:collapse;font-size:3.4mm}th{background:linear-gradient(90deg,#0b67db,#188cff);padding:3mm;text-align:center}td{border:1px solid #58697d;padding:3.2mm;vertical-align:middle}
+td.item{width:10%;text-align:center;font-size:8mm;font-weight:900;color:var(--blue)}td.serv{width:25%;font-weight:900;font-size:4mm}td.desc{width:45%;line-height:1.45}td.val{width:20%;text-align:center;font-weight:900;font-size:4.8mm;color:var(--blue)}
+.total-row{display:grid;grid-template-columns:1fr 55mm;border:1px solid #58697d;border-top:0}.total-label{padding:3mm;text-align:right;font-size:4mm}.total-value{padding:3mm;text-align:center;font-weight:900;font-size:6mm;color:var(--blue);border-left:1px solid #58697d}.note{font-size:2.9mm;margin-top:1.5mm}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:6mm;position:relative;z-index:2}.box{border:1px solid var(--blue);border-radius:2mm;overflow:hidden}.boxtitle{padding:3mm 4mm;font-size:4mm;font-weight:900;color:var(--blue);border-bottom:1px solid var(--blue)}.boxbody{padding:4mm;font-size:3.4mm;line-height:1.55}.boxbody p{margin:0 0 2.5mm}
+.warranty{margin-top:5mm;position:relative;z-index:2}.footer{margin-top:6mm;padding-top:5mm;border-top:1px solid var(--blue);display:grid;grid-template-columns:1.1fr 1fr .75fr;gap:5mm;position:relative;z-index:2;font-size:3.2mm}.slogan{font-size:4mm;line-height:1.5}.slogan em{color:var(--blue2)}.qr{border:3px solid #fff;background:#fff;width:28mm;height:28mm;display:grid;place-items:center;color:#111;font-size:3mm;font-weight:900}.smallblue{color:var(--blue);font-weight:900}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.panel{position:relative;top:0}.quote-wrap{overflow:auto}}
+@media print{body{background:#fff}.top,.panel{display:none}.app{padding:0;max-width:none}.layout{display:block}.quote-wrap{padding:0;background:#fff}.quote{box-shadow:none;margin:0;width:210mm;height:297mm;min-height:297mm}@page{size:A4;margin:0}}
+</style>
+<meta name="theme-color" content="#070b12">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="brand">E.L.S VIDROS E ESPELHOS<span>GERADOR DE ORÇAMENTOS</span></div><div class="actions"><button class="secondary" onclick="novo()">Novo orçamento</button><button class="primary" onclick="window.print()">Gerar / Compartilhar PDF</button></div></div>
+<div class="layout">
+<aside class="panel">
+<h2>Dados do orçamento</h2>
+<div class="row"><div class="field"><label>Nº do orçamento</label><input id="num" value="034/2026"></div><div class="field"><label>Data</label><input id="date" type="date"></div></div>
+<div class="field"><label>Cliente</label><input id="client" value="Ícaro (Cliente)"></div><div class="field"><label>Telefone</label><input id="phone" value="(11) 99180-1603"></div><div class="field"><label>Endereço / obra</label><input id="address" value="Condomínio Residencial Alpha"></div><div class="field"><label>Validade</label><input id="valid" value="10 dias"></div>
+<h2>Serviço</h2>
+<div class="field"><label>Nome do serviço</label><input id="service" value="TROCA VIDRO QUARITA MU CLICK"></div>
+<div class="field"><label>Descrição</label><textarea id="desc">Fornecimento e instalação de vidro Quarita.
+Vidro de segurança laminado 3+3 mm.
+Película refletiva + película refletiva no vidro lateral.
+Película refletiva profissional prata.</textarea></div>
+<div class="row"><div class="field"><label>Quantidade</label><input id="qty" type="number" min="1" step="1" value="1"></div><div class="field"><label>Unidade</label><select id="unit"><option>Unid.</option><option>m²</option><option>m</option><option>Kit</option></select></div></div>
+<div class="field"><label>Valor unitário (R$)</label><input id="value" value="1268,00"></div>
+<div class="field"><label>Forma de pagamento</label><textarea id="payment">Boleto, transferência bancária, dinheiro, cheque, cartão de crédito, cartão de débito, pix, picpay ou link de pagamento.</textarea></div>
+<div class="field"><label>Prazo de execução</label><input id="deadline" value="A combinar após confirmação do pedido."></div>
+<div class="field"><label>Condição de pagamento</label><input id="condition" value="A combinar."></div>
+<div class="field"><label>Garantia</label><textarea id="warranty">A E.L.S Vidros e Espelhos garante a qualidade da instalação e dos materiais fornecidos conforme as condições estabelecidas neste orçamento. A garantia não cobre danos decorrentes de mau uso, impactos, alterações realizadas por terceiros ou condições externas à instalação.</textarea></div>
+<div class="actions"><button class="primary" onclick="salvar()">Salvar orçamento</button><button class="secondary" onclick="carregar()">Carregar último</button></div>
+</aside>
+<div class="quote-wrap">
+<section class="quote" id="quote">
+<div class="qhead"><div><div class="logo"><span class="blue">E.L.S</span><small>Vidros e Espelhos</small></div><div class="tags">VIDROS TEMPERADOS • ESPELHOS • SACADAS • PORTAS • JANELAS</div></div><div class="contact"><div><span class="smallblue">WhatsApp:</span> (11) 99297-4779</div><div>eduardo.lopesilva@outlook.com.br</div><div>@els_vidroseespelhos</div><div>CNPJ: 22.210.939/0001-13</div><div>CEP 03975-090 — São Paulo/SP</div></div></div>
+<div class="hero"><div><div class="title">ORÇAMENTO<div class="num">Nº <span class="blue" id="pnum"></span></div></div><div class="underline"></div><p>Agradecemos a oportunidade de apresentar nossa proposta comercial.</p></div><div class="meta"><div class="meta-row"><b>DATA DO ORÇAMENTO</b><span id="pdate"></span></div><div class="meta-row"><b>CLIENTE</b><span id="pclient"></span></div><div class="meta-row"><b>TELEFONE</b><span id="pphone"></span></div><div class="meta-row"><b>VALIDADE DA PROPOSTA</b><span id="pvalid"></span></div></div></div>
+<div class="services"><table><thead><tr><th>ITEM</th><th>SERVIÇO</th><th>DESCRIÇÃO</th><th>VALOR</th></tr></thead><tbody><tr><td class="item">01</td><td class="serv" id="pservice"></td><td class="desc" id="pdesc"></td><td class="val">R$ <span id="pvalue"></span></td></tr></tbody></table><div class="total-row"><div class="total-label">TOTAL DO ORÇAMENTO</div><div class="total-value">R$ <span id="ptotal"></span></div></div><div class="note">* Valores expressos em Reais (R$).</div></div>
+<div class="twocol"><div><div class="box"><div class="boxtitle">✓ INCLUSO NO SERVIÇO</div><div class="boxbody"><p>• Fornecimento do vidro especificado;</p><p>• Mão de obra para instalação;</p><p>• Aplicação das películas especificadas;</p><p>• Acabamento e limpeza da área após a instalação.</p></div></div><div class="box" style="margin-top:5mm"><div class="boxtitle">✕ NÃO INCLUSO</div><div class="boxbody"><p>• Serviços de alvenaria;</p><p>• Reparos na estrutura existente;</p><p>• Serviços não descritos neste orçamento.</p></div></div></div>
+<div class="box"><div class="boxtitle">✓ CONDIÇÕES COMERCIAIS</div><div class="boxbody"><p><b>FORMAS DE PAGAMENTO</b><br><span id="ppayment"></span></p><p><b>PRAZO DE EXECUÇÃO</b><br><span id="pdeadline"></span></p><p><b>VALIDADE DO ORÇAMENTO</b><br><span id="pvalid2"></span></p><p><b>CONDIÇÃO DE PAGAMENTO</b><br><span id="pcondition"></span></p></div></div></div>
+<div class="box warranty"><div class="boxtitle">🛡 GARANTIA</div><div class="boxbody" id="pwarranty"></div></div>
+<div class="footer"><div class="slogan">Qualidade, segurança<br>e acabamento em <em>cada detalhe.</em></div><div><div class="smallblue">FALE CONOSCO</div><div>(11) 99297-4779</div><div>@els_vidroseespelhos</div><div>eduardo.lopesilva@outlook.com.br</div></div><div><div class="smallblue">FALE CONOSCO PELO WHATSAPP</div><div class="qr">QR CODE</div></div></div>
+</section>
+</div>
+</div>
+</div>
+<script>
+const ids=['num','date','client','phone','address','valid','service','desc','qty','unit','value','payment','deadline','condition','warranty'];const $=id=>document.getElementById(id);
+function brDate(v){if(!v)return'';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`}
+function moneyBR(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function update(){const g=id=>$(id).value;$('pnum').textContent=g('num');$('pdate').textContent=brDate(g('date'));$('pclient').textContent=g('client');$('pphone').textContent=g('phone');$('pvalid').textContent=g('valid');$('pvalid2').textContent=g('valid');$('pservice').textContent=g('service');$('pdesc').innerHTML=g('desc').split('\n').filter(Boolean).map(x=>'• '+x.replace(/^•\s*/,'')).join('<br>');const q=parseFloat(g('qty'))||1;const v=parseFloat(g('value').replace(/\./g,'').replace(',','.'))||0;const t=q*v;$('pvalue').textContent=moneyBR(t);$('ptotal').textContent=moneyBR(t);$('ppayment').textContent=g('payment');$('pdeadline').textContent=g('deadline');$('pcondition').textContent=g('condition');$('pwarranty').textContent=g('warranty')}
+function salvar(){localStorage.setItem('els_orcamento',JSON.stringify(Object.fromEntries(ids.map(i=>[i,$(i).value]))));alert('Orçamento salvo neste aparelho.')}
+function carregar(){const x=JSON.parse(localStorage.getItem('els_orcamento')||'null');if(!x)return alert('Nenhum orçamento salvo.');ids.forEach(i=>$(i).value=x[i]??'');update()}
+function novo(){ids.forEach(i=>{if(i!=='date')$(i).value=''});$('valid').value='10 dias';$('date').value=new Date().toISOString().slice(0,10);update()}
+ids.forEach(i=>$(i).addEventListener('input',update));$('date').value=new Date().toISOString().slice(0,10);update();if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+</script>
+</body>
+</html>
