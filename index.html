@@ -47,8 +47,7 @@ td{border:1px solid #516274;padding:3mm;vertical-align:middle}.item{width:9%;tex
 <body>
 <div class="app">
 <div class="top"><div><h1>E.L.S VIDROS E ESPELHOS</h1><small>GERADOR DE ORÇAMENTOS</small></div><div class="actions"><button class="secondary" onclick="novo()">Novo orçamento</button><button class="primary" onclick="gerarPDF()">Gerar / Compartilhar PDF</button></div></div>
-<div class="layout">
-<aside class="panel">
+<div class="layout"><aside class="panel">
 <h2>Dados do orçamento</h2>
 <div class="row"><div class="field"><label>Nº do orçamento</label><input id="num" value="034/2026"></div><div class="field"><label>Data</label><input id="date" type="date"></div></div>
 <div class="field"><label>Cliente</label><input id="client" value="Ícaro (Cliente)"></div>
@@ -69,8 +68,7 @@ Película refletiva profissional prata.</textarea></div>
 <div class="field"><label>Garantia</label><textarea id="warranty">A E.L.S Vidros e Espelhos garante a qualidade da instalação e dos materiais fornecidos conforme as condições estabelecidas neste orçamento. A garantia não cobre danos decorrentes de mau uso, impactos ou alterações realizadas por terceiros.</textarea></div>
 <div class="actions"><button class="primary" onclick="salvar()">Salvar orçamento</button><button class="secondary" onclick="carregar()">Carregar último</button></div>
 </aside>
-<div class="preview">
-<section class="proposal" id="proposal">
+<div class="preview"><section class="proposal" id="proposal">
 <div class="hdr"><div><div class="brandmark"><div class="iconLogo"><i></i><i></i><i></i><i></i></div><div class="brandtext"><b>E.L.S</b><span>Vidros e Espelhos</span></div></div><div class="servicesline">VIDROS TEMPERADOS • ESPELHOS • SACADAS • PORTAS • JANELAS</div></div><div class="contact"><div><b>●</b> (11) 99297-4779</div><div><b>✉</b> eduardo.lopesilva@outlook.com.br</div><div><b>◎</b> @els_vidroseespelhos</div><div><b>▣</b> CNPJ: 22.210.939/0001-13</div><div><b>●</b> CEP 03975-090 — São Paulo/SP</div></div></div>
 <div class="hero"><div><div class="title">ORÇAMENTO<div class="n">Nº <span id="pnum"></span></div></div><div class="u"></div><div class="thanks">Agradecemos a oportunidade de apresentar nossa proposta comercial.</div></div><div class="meta"><div class="mrow"><b>DATA DO ORÇAMENTO</b><span id="pdate"></span></div><div class="mrow"><b>CLIENTE</b><span id="pclient"></span></div><div class="mrow"><b>TELEFONE</b><span id="pphone"></span></div><div class="mrow"><b>VALIDADE DA PROPOSTA</b><span id="pvalid"></span></div></div></div>
 <div class="sectionTag">⚒ SERVIÇOS</div>
@@ -80,13 +78,36 @@ Película refletiva profissional prata.</textarea></div>
 <div class="box warranty"><div class="bt">🛡 GARANTIA</div><div class="bb" id="pwarranty"></div></div>
 <div class="footer"><div class="slogan">Qualidade, segurança<br>e acabamento em <strong>cada detalhe.</strong></div><div class="fc"><b>FALE CONOSCO</b><br>(11) 99297-4779<br>@els_vidroseespelhos<br>eduardo.lopesilva@outlook.com.br</div><div><b style="color:#168cff;font-size:2.7mm">WHATSAPP</b><div class="qr">QR CODE</div></div></div>
 <div class="bottomline">E.L.S VIDROS E ESPELHOS — CNPJ 22.210.939/0001-13 — CEP 03975-090 — São Paulo/SP</div>
-</section>
-</div></div></div>
+</section></div></div></div>
 <script>
 const ids=['num','date','client','phone','address','valid','service','desc','qty','unit','value','payment','deadline','condition','warranty'];const $=id=>document.getElementById(id);
 function brDate(v){if(!v)return'';const [y,m,d]=v.split('-');return `${d}/${m}/${y}`}function moneyBR(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function update(){const g=id=>$(id).value;$('pnum').textContent=g('num');$('pdate').textContent=brDate(g('date'));$('pclient').textContent=g('client');$('pphone').textContent=g('phone');$('pvalid').textContent=g('valid');$('pvalid2').textContent=g('valid');$('pservice').textContent=g('service');$('pdesc').innerHTML=g('desc').split('\n').filter(Boolean).map(x=>'• '+x.replace(/^•\s*/,'')).join('<br>');const q=parseFloat(g('qty'))||1;const v=parseFloat(g('value').replace(/\./g,'').replace(',','.'))||0;const t=q*v;$('pvalue').textContent=moneyBR(t);$('ptotal').textContent=moneyBR(t);$('ppayment').textContent=g('payment');$('pdeadline').textContent=g('deadline');$('pcondition').textContent=g('condition');$('pwarranty').textContent=g('warranty')}
-function salvar(){localStorage.setItem('els_orcamento',JSON.stringify(Object.fromEntries(ids.map(i=>[i,$(i).value]))));alert('Orçamento salvo neste aparelho.')}function carregar(){const x=JSON.parse(localStorage.getItem('els_orcamento')||'null');if(!x)return alert('Nenhum orçamento salvo.');ids.forEach(i=>$(i).value=x[i]??'');update()}function novo(){ids.forEach(i=>{if(i!=='date')$(i).value=''});$('valid').value='10 dias';$('date').value=new Date().toISOString().slice(0,10);update()}
-
+function salvar(){localStorage.setItem('els_orcamento',JSON.stringify(Object.fromEntries(ids.map(i=>[i,$(i).value]))));alert('Orçamento salvo neste aparelho.')}
+function carregar(){const x=JSON.parse(localStorage.getItem('els_orcamento')||'null');if(!x)return alert('Nenhum orçamento salvo.');ids.forEach(i=>$(i).value=x[i]??'');update()}
+function novo(){ids.forEach(i=>{if(i!=='date')$(i).value=''});$('valid').value='10 dias';$('date').value=new Date().toISOString().slice(0,10);update()}
+async function gerarPDF(){
+  const el=$('proposal');
+  try{
+    if(!window.html2canvas||!window.jspdf){alert('Carregando gerador de PDF. Aguarde alguns segundos e tente novamente.');return}
+    update();
+    const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#05080d',logging:false,width:el.scrollWidth,height:el.scrollHeight,windowWidth:el.scrollWidth,windowHeight:el.scrollHeight});
+    const img=canvas.toDataURL('image/jpeg',0.98);
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
+    pdf.addImage(img,'JPEG',0,0,210,297,undefined,'FAST');
+    const blob=pdf.output('blob');
+    const nome=`Orcamento_${$('num').value.replace(/[\/\\]/g,'-')}_ELS.pdf`;
+    const file=new File([blob],nome,{type:'application/pdf'});
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'Proposta E.L.S Vidros e Espelhos',text:'Segue proposta comercial da E.L.S Vidros e Espelhos.'});
+    }else{
+      pdf.save(nome);
+    }
+  }catch(e){
+    console.error(e);
+    alert('Não foi possível gerar o PDF agora. Tente novamente.');
+  }
+}
 ids.forEach(i=>$(i).addEventListener('input',update));$('date').value=new Date().toISOString().slice(0,10);update();
 </script></body></html>
